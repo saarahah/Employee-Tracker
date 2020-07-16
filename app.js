@@ -79,6 +79,12 @@ function start (){
             
             break;
 
+            case "add a new department":
+
+            addDept();
+                
+            break;
+
             case "update role":
 
             updateRole();
@@ -87,9 +93,9 @@ function start (){
 
             case "exit":
 
-                exit();
+            exit();
     
-                break;        
+            break;        
 
         }
     })

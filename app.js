@@ -151,7 +151,11 @@ function viewAllDept(){
 }
 
 function viewAllEmp(){
-
+connection.query("SELECT * FROM employee", function (error, results){
+    if (error) throw error
+    console.table(results)
+    back();
+})
 
 }
 

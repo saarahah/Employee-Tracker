@@ -151,12 +151,16 @@ connection.query("SELECT * FROM employee", function (error, results){
 
 }
 
+function viewRole(){
+    
+}
+
 function addRole(){
 
 }
 
 function addDept(){
-    
+
 }
 
 function updateRole(){

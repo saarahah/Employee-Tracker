@@ -134,7 +134,10 @@ function addEmployee(){
             message: "what is employee's manager ID"
         },
     ])
-    // back();    
+    .then (function(answer){
+
+      back();      
+    })
 }
 
 function viewAllDept(){

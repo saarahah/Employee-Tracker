@@ -81,9 +81,7 @@ function start (){
 
                 exit();
     
-                break;
-
-        
+                break;        
 
         }
     })
@@ -155,6 +153,10 @@ connection.query("SELECT * FROM employee", function (error, results){
 
 function addRole(){
 
+}
+
+function addDept(){
+    
 }
 
 function updateRole(){

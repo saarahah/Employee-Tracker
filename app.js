@@ -40,9 +40,6 @@ function start (){
                 "update role",
                 "exit"
             ]
-
-
-
         }
     )
 
@@ -136,10 +133,17 @@ function addEmployee(){
             name: "manager_id",
             message: "what is employee's manager ID"
         },
-    ])    
+    ])
+    // back();    
 }
 
 function viewAllDept(){
+
+    connection.query("SELECT * FROM department", function (error, results){
+        if(error) throw error;
+        console.table(results);
+        back();
+    })
 
 }
 
@@ -154,6 +158,21 @@ function addRole(){
 
 function updateRole(){
 
+}
+
+function back(){
+    inquirer.prompt({
+        
+            type: "list",
+            name: "back",
+            choices: ["back"]
+        
+}).then(function(answer) {
+
+    if (answer.back === "back"){
+        start();
+}    
+})
 }
 
 function exit(){

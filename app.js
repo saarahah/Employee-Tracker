@@ -90,36 +90,17 @@ function start (){
     
 }
 
-
-
-
-// const initialQ = {
-//         type: "list",
-//         name: "options",
-//         message: "what do you want to do?",
-//         choices:[
-//             "view all employees",
-//             "view all departments",
-//             "add a new employee",
-//             "add a new role",
-//             "update role",
-//             "exit"
-//         ]
-//     }
-
-// prompt(initialQ);
-
 function addEmployee(){
 
     inquirer.prompt([
         {
             type: "input",
-            name: "firstname",
+            name: "first_name",
             message: "what is the employee first name?"
         },
         {
             type: "input",
-            name: "lastname",
+            name: "last_name",
             message: "what is the employee last name?"
         },
 
@@ -135,6 +116,16 @@ function addEmployee(){
         },
     ])
     .then (function(answer){
+
+        connection.query(
+            "INSERT INTO employees SET ?",
+            {
+              first_name : answer.first_name,
+              last_name: answer.last_name,
+              role_id: answer.role_id,  
+              manager_id : answer.manager_id
+            }
+        )
 
       back();      
     })

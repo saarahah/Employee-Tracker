@@ -24,55 +24,138 @@ connection.connect(function(err) {
 });
 
 
-var prompt = function (question){
+function start (){
 
-    return inquirer.prompt(question)
+    inquirer.prompt(
+        {
+
+            type: "list",
+            name: "options",
+            message: "what do you want to do?",
+            choices:[
+                "view all employees",
+                "view all departments",
+                "add a new employee",
+                "add a new role",
+                "update role",
+                "exit"
+            ]
+
+
+
+        }
+    )
 
     .then(function(answers){
 
         switch(answers.options){
 
             case "view all employees":
+
+            viewAllEmp();
         
             break;
 
-            case: "view all departments":
+            case "view all departments":
+
+            viewAllDept();
 
             break;
             
             case "add a new employee":
 
+            addEmployee();
+
             break;
 
             case "add a new role":
+
+            addRole();
             
             break;
 
             case "update role":
 
+            updateRole();
+
             break;
+
+            case "exit":
+
+                exit();
+    
+                break;
 
         
 
         }
     })
+    
 }
 
 
 
 
-const initialQ = {
-        type: "list",
-        name: "options",
-        message: "what do you want to do?",
-        choices:[
-            "view all employees",
-            "view all departments",
-            "add a new employee",
-            "add a new role",
-            "update role",
-            "exit"
-        ]
-    }
+// const initialQ = {
+//         type: "list",
+//         name: "options",
+//         message: "what do you want to do?",
+//         choices:[
+//             "view all employees",
+//             "view all departments",
+//             "add a new employee",
+//             "add a new role",
+//             "update role",
+//             "exit"
+//         ]
+//     }
 
-prompt(initialQ);
+// prompt(initialQ);
+
+function addEmployee(){
+
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "firstname",
+            message: "what is the employee first name?"
+        },
+        {
+            type: "input",
+            name: "lastname",
+            message: "what is the employee last name?"
+        },
+
+        {
+            type: "input",
+            name: "role_id",
+            message: "employee's role ID?"
+        },
+        {
+            type: "input",
+            name: "manager_id",
+            message: "what is employee's manager ID"
+        },
+    ])    
+}
+
+function viewAllDept(){
+
+}
+
+function viewAllEmp(){
+
+
+}
+
+function addRole(){
+
+}
+
+function updateRole(){
+
+}
+
+function exit(){
+ connection.end()
+}

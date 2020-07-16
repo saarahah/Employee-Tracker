@@ -22,3 +22,55 @@ connection.connect(function(err) {
   // run the start function after the connection is made to prompt the user
   start();
 });
+
+
+var prompt = function (question){
+
+    return inquirer.prompt(question)
+
+    .then(function(answers){
+
+        switch(answers.options){
+
+            case "view all employees":
+        
+            break;
+
+            case: "view all departments":
+
+            break;
+            
+            case "add a new employee":
+
+            break;
+
+            case "add a new role":
+            
+            break;
+
+            case "update role";
+
+            break;
+
+        
+
+        }
+    })
+}
+
+
+
+
+const initialQ = {
+        type: "list",
+        name: "options"
+        message: "what do you want to do?",
+        choices:[
+            "view all employees",
+            "view all departments",
+            "add a new employee",
+            "add a new role",
+            "update role",
+            "exit"
+        ]
+    }

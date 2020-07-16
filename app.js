@@ -23,6 +23,11 @@ connection.connect(function(err) {
   start();
 });
 
+//to add employee
+//ask first name
+//ask last name
+//get the data for the manager to display
+//same for role
 
 function start (){
 
@@ -119,7 +124,7 @@ function addEmployee(){
         {
             type: "input",
             name: "role_id",
-            message: "employee's role ID?"
+            message: "employee's role?"
         },
         {
             type: "input",
@@ -156,7 +161,7 @@ function viewAllDept(){
 }
 
 function viewAllEmp(){
-connection.query("SELECT * FROM employee", function (error, results){
+connection.query("SELECT * FROM employee WHERE FOREIGN KEY", function (error, results){
     if (error) throw error
     console.table(results)
     back();

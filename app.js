@@ -48,7 +48,7 @@ var prompt = function (question){
             
             break;
 
-            case "update role";
+            case "update role":
 
             break;
 
@@ -63,7 +63,7 @@ var prompt = function (question){
 
 const initialQ = {
         type: "list",
-        name: "options"
+        name: "options",
         message: "what do you want to do?",
         choices:[
             "view all employees",
@@ -74,3 +74,5 @@ const initialQ = {
             "exit"
         ]
     }
+
+prompt(initialQ);

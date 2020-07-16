@@ -38,6 +38,7 @@ function start (){
                 "view all roles",
                 "add a new employee",
                 "add a new role",
+                "add a new department",
                 "update role",
                 "exit"
             ]
@@ -62,7 +63,7 @@ function start (){
 
             case "view all roles":
 
-            viewAllDept();
+            viewRole();
     
             break;
             
@@ -146,7 +147,6 @@ function viewAllDept(){
         console.table(results);
         back();
     })
-
 }
 
 function viewAllEmp(){
@@ -163,8 +163,7 @@ function viewRole(){
         if (error) throw error
         console.table(results)
         back();
-    })
-    
+    })   
     }
 
 function addRole(){

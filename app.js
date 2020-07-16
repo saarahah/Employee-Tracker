@@ -35,6 +35,7 @@ function start (){
             choices:[
                 "view all employees",
                 "view all departments",
+                "view all roles",
                 "add a new employee",
                 "add a new role",
                 "update role",
@@ -57,6 +58,12 @@ function start (){
 
             viewAllDept();
 
+            break;
+
+            case "view all roles":
+
+            viewAllDept();
+    
             break;
             
             case "add a new employee":
@@ -152,8 +159,13 @@ connection.query("SELECT * FROM employee", function (error, results){
 }
 
 function viewRole(){
+    connection.query("SELECT * FROM emprole", function (error, results){
+        if (error) throw error
+        console.table(results)
+        back();
+    })
     
-}
+    }
 
 function addRole(){
 

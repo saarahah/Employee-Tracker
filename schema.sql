@@ -1,0 +1,24 @@
+DROP DATABASE IF EXISTS tracker_DB;
+CREATE DATABASE tracker_DB;
+
+USE tracker_DB;
+
+CREATE TABLE department(
+
+deptname VARCHAR (30) NOT NULL,
+id INT NOT NULL AUTO_INCREMENT,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE emprole(
+title VARCHAR (30) NOT NULL,
+id INT NOT NULL AUTO_INCREMENT,
+salary DECIMAL NOT NULL,
+department_id INTEGER,
+FOREIGN KEY (department_id)
+PRIMARY KEY (id)
+);
+
+CREATE TABLE employee(
+
+);

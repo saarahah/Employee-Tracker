@@ -55,9 +55,9 @@ function start (){
         
             break;
 
-            case "view all departments":
+            case "add a new department":
 
-            viewAllDept();
+            addDept();
 
             break;
 
@@ -79,9 +79,9 @@ function start (){
             
             break;
 
-            case "add a new department":
+            case "view all departments":
 
-            addDept();
+            viewAllDept();
                 
             break;
 
@@ -148,7 +148,7 @@ connection.query("SELECT * FROM emprole", function (err, results){
               first_name : answer.first_name,
               last_name: answer.last_name,
               role_id: emproleID,  
-              manager_id : answer.manager_id
+            //   manager_id : answer.manager_id
             },
             function(err){
                 if (err) throw err;
@@ -162,7 +162,7 @@ connection.query("SELECT * FROM emprole", function (err, results){
 
 function viewAllDept(){
 
-    connection.query("SELECT department.id, department.deptname, SUM(emprole.salary) AS utilized_budget FROM employee LEFT JOIN emprole on employee.role_id = emprole.id LEFT JOIN department on emprole.department_id = department.id GROUP BY department.id, department.deptname;", function (error, results){
+    connection.query("SELECT * FROM department", function (error, results){
         if(error) throw error;
         console.table(results);
         back();
@@ -179,7 +179,7 @@ connection.query("SELECT employee.id, employee.first_name, employee.last_name, e
 }
 
 function viewRole(){
-    connection.query("SELECT * FROM emprole", function (error, results){
+    connection.query( "SELECT emprole.id, emprole.title, department.deptname AS department, emprole.salary FROM emprole LEFT JOIN department on emprole.department_id = department.id;", function (error, results){
         if (error) throw error
         console.table(results)
         back();
@@ -187,7 +187,23 @@ function viewRole(){
     }
 
 function addDept(){
-
+    inquirer.prompt([{
+        type: "input",
+        name: "department",
+        message: "what department would you like to add?"
+    }
+]).then (function(answer){
+    connection.query("INSERT INTO department SET ?",
+        {
+            deptname : answer.department
+        },
+        function (err){
+            if (err) throw err;
+            console.log("department added!")
+            back();
+        }
+        )
+    })
 }
 
  function updateRole(){
@@ -200,9 +216,9 @@ function addDept(){
         console.log(employee);
         employees.push(employee);
     }
-    const employeeUp =  inquirer.prompt([
+ inquirer.prompt([
         {
-        name: "update",
+        name: "id",
         type: "list",
         message: "select travis please give him a bonus",
         choices: employees
@@ -216,25 +232,30 @@ function addDept(){
     }
     
 ]).then (function(answer){
-    connection.query("UPDATE employee SET ? WHERE ?", 
+    connection.query("UPDATE employee SET role_id ? WHERE id = ?", 
     [
         {
     
-             role_id: employeeUp.role_id,
+             role_id: answer.role_id,
         },
         {
         
-             id: 0
+             id: answer.employee_id
+        },
+        function (err, data){
+            if (err){
+                console.log(data);
+            }
         }
-        
-    ],
-    )
-   
+    ]) 
+back();
 })
 
 
     })
-    back();
+
+    // back();
+  
     // .then(
         
     //     connection.query ("SELECT * FROM emprole", function(err, results){

@@ -206,6 +206,26 @@ function addDept(){
     })
 }
 
+function addRole(){
+    inquirer.prompt([{
+        type: "input",
+        name: "role",
+        message: "what role would you like to add?"
+    }
+]).then (function(answer){
+    connection.query("INSERT INTO emprole SET ?",
+        {
+            title : answer.role
+        },
+        function (err){
+            if (err) throw err;
+            console.log("department added!")
+            back();
+        }
+        )
+    })
+}
+
  function updateRole(){
 
     var employees= [];

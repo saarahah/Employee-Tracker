@@ -109,6 +109,8 @@ function start (){
 
 function addEmployee(){
 
+connection.query("SELECT * FROM emprole", function (err, results){
+
     inquirer.prompt([
         {
             type: "input",
@@ -122,24 +124,35 @@ function addEmployee(){
         },
 
         {
-            type: "input",
+            type: "list",
             name: "role_id",
-            message: "employee's role?"
-        },
-        {
-            type: "input",
-            name: "manager_id",
-            message: "what is employee's manager ID"
+            message: "employee's role?",
+            choices: function(){
+
+                var empArray=[];
+                for (i= 0; i< results.length; i++){
+                    empArray.push(results[i].title);
+                }
+                // console.log(empArray);
+                return empArray;
+            }
         },
     ])
     .then (function(answer){
+
+        var emproleID;
+        for(j= 0; j< results.length; j++){
+            if (results[j].title === answer.role_id){
+                emproleID = results[j].id;
+            }
+        }
 
         connection.query(
             "INSERT INTO employee SET ?",
             {
               first_name : answer.first_name,
               last_name: answer.last_name,
-              role_id: answer.role_id,  
+              role_id: emproleID,  
               manager_id : answer.manager_id
             },
             function(err){
@@ -149,6 +162,7 @@ function addEmployee(){
             }
         )      
     })
+})
 }
 
 function viewAllDept(){

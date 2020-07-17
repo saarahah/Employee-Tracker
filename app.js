@@ -226,24 +226,24 @@ function addRole(){
     })
 }
 
-function updateRole(){
+ function updateRole(){
 
     var employees= [];
     var roles = [];
     connection.query ("SELECT * FROM employee NATURAL JOIN emprole", function(err, results){
     // console.table(results)
     for (i=0; i < results.length; i++){
-        var employee= results[i].id + " " + results[i].first_name + " " + results[i].last_name;
+        var employee=  results[i].first_name + " " + results[i].last_name;
         // console.log(employee);
         employees.push(employee);
     }
 
     for (i=0; i < results.length; i++){
-        var role = results[i].id + " " + results[i].title;
-        // console.log(role);
+        var role=  results[i].title;
+        console.log(role);
         roles.push(role);
     }
-  inquirer.prompt([
+ inquirer.prompt([
         {
         name: "id",
         type: "list",
@@ -275,7 +275,10 @@ function updateRole(){
             }
         }
     ]) 
-    console.table(results);
+    console.table(answer);
+
+
+
 back();
 })
     })

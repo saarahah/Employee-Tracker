@@ -161,7 +161,7 @@ function viewAllDept(){
 }
 
 function viewAllEmp(){
-connection.query("SELECT * FROM employee WHERE FOREIGN KEY", function (error, results){
+connection.query("SELECT employee.id, employee.first_name, employee.last_name, emprole.title, emprole.salary from tracker_DB.employee LEFT JOIN emprole ON emprole.id = employee.role_id", function (error, results){
     if (error) throw error
     console.table(results)
     back();

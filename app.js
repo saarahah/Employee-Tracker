@@ -231,7 +231,7 @@ function addRole(){
     var employees= [];
     var roles = [];
     connection.query ("SELECT * FROM employee NATURAL JOIN emprole", function(err, results){
-    console.table(results)
+    // console.table(results)
     for (i=0; i < results.length; i++){
         var employee=  results[i].first_name + " " + results[i].last_name;
         console.log(employee);

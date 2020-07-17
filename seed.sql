@@ -10,7 +10,7 @@ VALUES ("Lead Designer", 43242, 1),
 ("3D Modeler", 32343, 2),
 ("Lead Artist", 434343, 3),
 ("Junior Artist", 32, 3),
-("Manger", 4389043, 4);
+("Manager", 4389043, 4);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES 

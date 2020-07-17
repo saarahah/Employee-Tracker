@@ -229,12 +229,19 @@ function addRole(){
  function updateRole(){
 
     var employees= [];
-    connection.query ("SELECT * FROM employee", function(err, results){
-    
+    var roles = [];
+    connection.query ("SELECT * FROM employee NATURAL JOIN emprole", function(err, results){
+    console.table(results)
     for (i=0; i < results.length; i++){
         var employee=  results[i].first_name + " " + results[i].last_name;
         console.log(employee);
         employees.push(employee);
+    }
+
+    for (i=0; i < results.length; i++){
+        var role=  results[i].title;
+        console.log(role);
+        roles.push(role);
     }
  inquirer.prompt([
         {
@@ -248,11 +255,11 @@ function addRole(){
         name: "role_id",
         type: "list",
         message: "what do you want the new role to be?",
-        choices: ["Lead Designer", "Junior Designer", "3D Modeler", "Lead Artist", "Junior Artist", "Manager"]
+        choices: roles
     }
     
 ]).then (function(answer){
-    connection.query("UPDATE employee SET role_id ? WHERE id = ?", 
+    connection.query("UPDATE employee SET title ? WHERE title = ?", 
     [
         {
     

@@ -56,10 +56,7 @@ No contributors.
 <br/>
 ![image](images/screenshot11.PNG)
 <br/>
-![image](images/screenshot12.PNG)
-<br/>
-![image](images/screenshot13.PNG)
-<br/>
+
 
 
 

@@ -275,7 +275,7 @@ function addRole(){
             }
         }
     ]) 
-    console.table(answer);
+    console.table(results);
 back();
 })
     })

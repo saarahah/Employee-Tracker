@@ -34,31 +34,31 @@ No contributors.
 
 ## Screenshots
 
-![image](image/screenshot1.PNG)
+![image](images/screenshot1.PNG)
 <br/>
-![image](image/screenshot2.PNG)
+![image](images/screenshot2.PNG)
 <br/>
-![image](image/screenshot3.PNG)
+![image](images/screenshot3.PNG)
 <br/>
-![image](image/screenshot4.PNG)
+![image](images/screenshot4.PNG)
 <br/>
-![image](image/screenshot5.PNG)
+![image](images/screenshot5.PNG)
 <br/>
-![image](image/screenshot6.PNG)
+![image](images/screenshot6.PNG)
 <br/>
-![image](image/screenshot7.PNG)
+![image](images/screenshot7.PNG)
 <br/>
-![image](image/screenshot8.PNG)
+![image](images/screenshot8.PNG)
 <br/>
-![image](image/screenshot9.PNG)
+![image](images/screenshot9.PNG)
 <br/>
-![image](image/screenshot10.PNG)
+![image](images/screenshot10.PNG)
 <br/>
-![image](image/screenshot11.PNG)
+![image](images/screenshot11.PNG)
 <br/>
-![image](image/screenshot12.PNG)
+![image](images/screenshot12.PNG)
 <br/>
-![image](image/screenshot13.PNG)
+![image](images/screenshot13.PNG)
 <br/>
 
 

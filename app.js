@@ -23,12 +23,6 @@ connection.connect(function(err) {
   start();
 });
 
-//to add employee
-//ask first name
-//ask last name
-//get the data for the manager to display
-//same for role
-
 function start (){
 
     inquirer.prompt(
@@ -191,15 +185,28 @@ function viewRole(){
     })   
     }
 
-function addRole(){
-
-}
-
 function addDept(){
 
 }
 
 function updateRole(){
+
+    var employees= [];
+    connection.query ("SELECT * FROM employee", function(err, results){
+    
+    for (i=0; i < results.length; i++){
+        var employee=  results[i].first_name + " " + results[i].last_name;
+        console.log(employee);
+        employees.push(employee);
+    }
+    inquirer.prompt([{
+        name: "update",
+        type: "rawlist",
+        message: "select travis please give him a bonus",
+        choices: employees
+        
+    }])
+    })
 
 }
 

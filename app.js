@@ -271,14 +271,13 @@ function addRole(){
         },
         function (err, data){
             if (err){
-                console.log(data);
+                throw err;
             }
         }
     ]) 
+    console.table(answer);
 back();
 })
-
-
     })
 }
 

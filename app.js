@@ -247,23 +247,23 @@ function addRole(){
         {
         name: "id",
         type: "list",
-        message: "select travis please give him a bonus",
+        message: "select an employee",
         choices: employees
         
     },
     {
-        name: "role_id",
+        name: "role",
         type: "list",
         message: "what do you want the new role to be?",
         choices: roles
     }
     
 ]).then (function(answer){
-    connection.query("UPDATE employee SET title ? WHERE title = ?", 
+    connection.query("INSERT INTO emprole SET ?", 
     [
         {
     
-             role_id: answer.role_id,
+             title: answer.role,
         },
         {
         
@@ -280,71 +280,6 @@ back();
 
 
     })
-
-    // back();
-  
-    // .then(
-        
-    //     connection.query ("SELECT * FROM emprole", function(err, results){
-            
-    //         var roleArray = [];
-
-    //         for (i=0; i < results.length; i++){
-    //             var role=  results[i].title;
-    //             console.log(role);
-    //             employees.push(role);
-    //         }
-    // inquirer.prompt([
-    //             {
-    //             name: "roleUpdate",
-    //             type: "list",
-    //             message: "select a new role",
-    //             choices: roleArray
-                
-    //         }
-    //         // {
-    //         //     name: "role",
-    //         //     type: "list",
-    //         //     message: "what do you want the new role to be?",
-    //         //     choices: ["Lead Designer", "Junior Designer", "3D Modeler", "Lead Artist", "Junior Artist", "Manager"]
-    //         // }
-    //     ])
-    //     }
-    // )
-    // )
-}
-
-// ]).then (inquirer.prompt(
-//     {
-//         name: "role",
-//         type: "list",
-//         message: "select role",
-//         choices: function(){
-
-//             var empArray=[];
-//             for (i= 0; i< results.length; i++){
-//                 empArray.push(results[i].title);
-//             }
-//             // console.log(empArray);
-//             return empArray;
-//         }
-//     })
-// .then (function(answer){
-//     connection.query("SELECT * FROM emprole", function (err, results){
-
-//     var emproleID;
-//     for(j= 0; j< results.length; j++){
-//         if (results[j].title === answer.role_id){
-//             emproleID = results[j].id;
-
-//     }
-// }
-// })
-//     })
-// })
-// }
-
-
 
 
 function back(){

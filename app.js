@@ -234,13 +234,13 @@ function addRole(){
     // console.table(results)
     for (i=0; i < results.length; i++){
         var employee=  results[i].first_name + " " + results[i].last_name;
-        console.log(employee);
+        // console.log(employee);
         employees.push(employee);
     }
 
     for (i=0; i < results.length; i++){
         var role=  results[i].title;
-        console.log(role);
+        // console.log(role);
         roles.push(role);
     }
  inquirer.prompt([

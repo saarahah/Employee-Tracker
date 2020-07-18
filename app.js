@@ -219,7 +219,7 @@ function addRole(){
         },
         function (err){
             if (err) throw err;
-            console.log("department added!")
+            console.log("role added!")
             back();
         }
         )

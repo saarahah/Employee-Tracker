@@ -226,24 +226,29 @@ function addRole(){
     })
 }
 
- function updateRole(){
+async function updateRole(){
 
     var employees= [];
+    var employee_id = [];
     var roles = [];
-    connection.query ("SELECT * FROM employee NATURAL JOIN emprole", function(err, results){
+    var role_id = [];
+   await connection.query ("SELECT * FROM employee NATURAL JOIN emprole", async function(err, results){
     // console.table(results)
     for (i=0; i < results.length; i++){
         var employee=  results[i].first_name + " " + results[i].last_name;
         // console.log(employee);
         employees.push(employee);
-    }
+        // return employees;
+    
 
-    for (i=0; i < results.length; i++){
-        var role=  results[i].title;
-        console.log(role);
+    for (j=0; j < results.length; j++){
+        var role=  results[j].title;
+        // console.log(role);
         roles.push(role);
+        // return roles;
     }
- inquirer.prompt([
+}
+await inquirer.prompt([
         {
         name: "id",
         type: "list",
@@ -262,7 +267,7 @@ function addRole(){
     connection.query("INSERT INTO emprole SET ?", 
     [
         {
-    
+            
              title: answer.role,
         },
         {
@@ -275,7 +280,8 @@ function addRole(){
             }
         }
     ]) 
-    console.table(answer);
+   
+    console.table(results);
 
 
 

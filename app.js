@@ -226,29 +226,30 @@ function addRole(){
     })
 }
 
-async function updateRole(){
+function updateRole(){
 
     var employees= [];
-    var employee_id = [];
+    // var employee_id = [];
     var roles = [];
-    var role_id = [];
-   await connection.query ("SELECT * FROM employee NATURAL JOIN emprole", async function(err, results){
-    // console.table(results)
-    for (i=0; i < results.length; i++){
-        var employee=  results[i].first_name + " " + results[i].last_name;
-        // console.log(employee);
-        employees.push(employee);
-        // return employees;
+    // var role_id = [];
+     connection.query ("SELECT * FROM employee NATURAL JOIN emprole", async function(err, results){
+        // console.table(results)
+        for (i=0; i < results.length; i++){
+            var employee=  results[i].first_name + " " + results[i].last_name;
+            // console.log(employee);
+            employees.push(employee);
+            // return employees;
+        }
     
-
-    for (j=0; j < results.length; j++){
-        var role=  results[j].title;
-        // console.log(role);
-        roles.push(role);
-        // return roles;
+        for (j=0; j < results.length; j++){
+            var role=  results[j].title;
+            // console.log(role);
+            roles.push(role);
+            // return roles;
+       
     }
-}
-await inquirer.prompt([
+
+ inquirer.prompt([
         {
         name: "id",
         type: "list",
@@ -264,7 +265,7 @@ await inquirer.prompt([
     }
     
 ]).then (function(answer){
-    connection.query("INSERT INTO emprole SET ?", 
+    connection.query("INSERT INTO emprole SET ? ", 
     [
         {
             
@@ -288,6 +289,7 @@ await inquirer.prompt([
 back();
 })
     })
+
 }
 
 

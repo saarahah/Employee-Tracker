@@ -281,7 +281,7 @@ await inquirer.prompt([
         }
     ]) 
    
-    console.table(results);
+    console.table(answer);
 
 
 

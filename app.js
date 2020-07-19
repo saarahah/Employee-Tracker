@@ -93,7 +93,7 @@ function start (){
             break;
 
             case "update manager":
-
+//you can change the manager number but view all employees is not displaying the manager name and it is literally driving me insane.
             updateManager();
     
             break;
@@ -177,8 +177,9 @@ function viewAllDept(){
 }
 
 function viewAllEmp(){
-connection.query("SELECT employee.emp_id, employee.first_name, employee.last_name, employee.manager_id, emprole.title, emprole.salary from tracker_DB.employee LEFT JOIN emprole ON emprole.id = employee.role_id", function (error, results){
-    if (error) throw error
+connection.query("SELECT employee.emp_id, employee.first_name, employee.last_name, employee.manager_id, emprole.title, emprole.salary from tracker_DB.employee LEFT JOIN emprole ON emprole.id = employee.role_id ", function (error, results){
+    // connection.query("SELECT * FROM employee JOIN emprole ON emprole.id = employee.role_id JOIN employee.emp_ ON employee.manager_id = employee.manager_id", function (error, results){   
+if (error) throw error
     console.table(results)
     back();
 })

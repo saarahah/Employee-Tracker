@@ -170,7 +170,7 @@ function viewAllDept(){
 }
 
 function viewAllEmp(){
-connection.query("SELECT employee.id, employee.first_name, employee.last_name, emprole.title, emprole.salary from tracker_DB.employee LEFT JOIN emprole ON emprole.id = employee.role_id", function (error, results){
+connection.query("SELECT employee.emp_id, employee.first_name, employee.last_name, emprole.title, emprole.salary from tracker_DB.employee LEFT JOIN emprole ON emprole.id = employee.role_id", function (error, results){
     if (error) throw error
     console.table(results)
     back();
@@ -226,55 +226,60 @@ function addRole(){
     })
 }
 
-function updateRole(){
+ function updateRole(){
 
     var employees= [];
     // var employee_id = [];
     var roles = [];
-    // var role_id = [];
-     connection.query ("SELECT * FROM employee NATURAL JOIN emprole", async function(err, results){
-        // console.table(results)
-        for (i=0; i < results.length; i++){
-            var employee=  results[i].first_name + " " + results[i].last_name;
-            // console.log(employee);
-            employees.push(employee);
-            // return employees;
-        }
-    
-        for (j=0; j < results.length; j++){
-            var role=  results[j].title;
-            // console.log(role);
-            roles.push(role);
-            // return roles;
-       
+    connection.query ("SELECT employee.emp_id, employee.role_id, employee.first_name, employee.last_name FROM employee INNER JOIN emprole ON employee.role_id = emprole.id ORDER BY emp_id",  function(err, results){
+     console.table(results)
+    for (i=0; i < results.length; i++){
+
+        
+        var employee= results[i].emp_id ;
+
+        employees.push(employee);
+      
+
     }
 
+    for (j=0; j < results.length; j++){
+        var role=  results[j].role_id;
+        // console.log(role);
+        roles.push(role);
+ 
+    
+}
  inquirer.prompt([
         {
-        name: "id",
+        name: "emp_id",
         type: "list",
         message: "select an employee",
         choices: employees
         
     },
     {
-        name: "role",
+        name: "role_id",
         type: "list",
         message: "what do you want the new role to be?",
         choices: roles
     }
     
 ]).then (function(answer){
-    connection.query("INSERT INTO emprole SET ? ", 
+    // console.log(answer.role_id)
+    // console.log(answer.emp_id)
+    connection.query("UPDATE employee SET role_id =? WHERE emp_id =?", 
+    // console.table(results)
     [
         {
             
-             title: answer.role,
+             role_id: answer.role_id,
         },
         {
         
-             id: answer.employee_id
+             emp_id: answer.emp_id
         },
+
         function (err, data){
             if (err){
                 throw err;
@@ -282,15 +287,15 @@ function updateRole(){
         }
     ]) 
    
-    console.table(answer);
+    console.table(results);
 
 
 
-back();
+// back();
 })
     })
-
 }
+
 
 
 function back(){

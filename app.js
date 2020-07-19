@@ -228,8 +228,16 @@ function addRole(){
 
  function updateRole(){
 
-    var employees= [];
     var roles = [];
+connection.query("SELECT * FROM emprole", function (err, results){
+    for (j=0; j < results.length; j++){
+        var role=  results[j].id + " " + results[j].title;
+        roles.push(role); 
+}
+
+})
+    var employees= [];
+    
     // connection.query ("SELECT employee.emp_id, employee.role_id, employee.first_name, employee.last_name FROM employee INNER JOIN emprole ON employee.role_id = emprole.id ORDER BY emp_id",  function(err, results){
     connection.query ("SELECT employee.*, emprole.title FROM employee JOIN emprole ON employee.role_id = emprole.id ORDER BY emp_id", function(err, results){
      console.table(results)
@@ -239,16 +247,10 @@ function addRole(){
         var employee= results[i].emp_id + " " + results[i].first_name + " " + results[i].last_name;
         employees.push(employee);
       
-
     }
 
-    for (j=0; j < results.length; j++){
-        var role=  results[j].role_id + " " + results[j].title;
-        // console.log(role);
-        roles.push(role);
- 
-    
-}
+
+
  inquirer.prompt([
         {
         name: "emp_id",
@@ -265,10 +267,7 @@ function addRole(){
     }
     
 ]).then (function(answer){
-    // console.log(answer.role_id)
-    // console.log(answer.emp_id)
     connection.query("UPDATE employee SET ? WHERE ?", 
-    // console.table(results)
     [
         {
             

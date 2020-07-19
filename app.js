@@ -24,6 +24,7 @@ connection.connect(function (err) {
   start();
 });
 
+//begin with initial Qs
 function start() {
   inquirer
     .prompt({
@@ -42,7 +43,7 @@ function start() {
         "exit",
       ],
     })
-
+//use switch to determine which functions run for which options
     .then(function (answers) {
       switch (answers.options) {
         case "view all employees":
@@ -81,7 +82,7 @@ function start() {
           break;
 
         case "update manager":
-          //you can change the manager number but view all employees is not displaying the manager name and it is literally driving me insane.
+
           updateManager();
 
           break;
@@ -93,7 +94,7 @@ function start() {
       }
     });
 }
-
+//add an employee
 function addEmployee() {
   connection.query("SELECT * FROM emprole", function (err, results) {
     inquirer
@@ -114,15 +115,16 @@ function addEmployee() {
           name: "role_id",
           message: "employee's role?",
           choices: function () {
+//create an array for the employee
             var empArray = [];
             for (i = 0; i < results.length; i++) {
               empArray.push(results[i].title);
             }
-            // console.log(empArray);
             return empArray;
           },
         },
       ])
+//create a variable for the role id
       .then(function (answer) {
         var emproleID;
         for (j = 0; j < results.length; j++) {
@@ -134,6 +136,7 @@ function addEmployee() {
         connection.query(
           "INSERT INTO employee SET ?",
           {
+//insert the data into the table
             first_name: answer.first_name,
             last_name: answer.last_name,
             role_id: emproleID,
@@ -150,6 +153,7 @@ function addEmployee() {
 }
 
 function viewAllDept() {
+//select the dept info
   connection.query("SELECT * FROM department", function (error, results) {
     if (error) throw error;
     console.table(results);
@@ -160,16 +164,12 @@ function viewAllDept() {
 function viewAllEmp() {
   connection.query(
 
-    //check each manager id if manager id === emp id 
-    //first for loop check manager id 
-    //second check manager id
-    //push first and last name into new column
-
+//select info that shows all employee info
     "SELECT employee.emp_id, employee.first_name, employee.last_name, emprole.title, department.deptname AS department, emprole.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN emprole on employee.role_id = emprole.id LEFT JOIN department on emprole.department_id = department.id LEFT JOIN employee manager on manager.emp_id = employee.manager_id;",
     
     function (error, results) {
-      // connection.query("SELECT * FROM employee JOIN emprole ON emprole.id = employee.role_id JOIN employee.emp_ ON employee.manager_id = employee.manager_id", function (error, results){
       if (error) throw error;
+//show results in table
       console.table(results);
       back();
     }
@@ -178,9 +178,11 @@ function viewAllEmp() {
 
 function viewRole() {
   connection.query(
+//select all role info
     "SELECT emprole.id, emprole.title, department.deptname AS department, emprole.salary FROM emprole LEFT JOIN department on emprole.department_id = department.id;",
     function (error, results) {
       if (error) throw error;
+//show results in table
       console.table(results);
       back();
     }
@@ -188,6 +190,7 @@ function viewRole() {
 }
 
 function addDept() {
+//ask department insert Qs
   inquirer
     .prompt([
       {
@@ -210,12 +213,16 @@ function addDept() {
       );
     });
 }
-
+//add a role
 function addRole() {
+//create an array for roles
     var depts = [];
+//select from emprole and dept tables
     connection.query("SELECT * FROM emprole, department", function (err, results) {
         for (i = 0; i < results.length; i++) {
+//use a for loop to fill array with dept id and dept name
           var dept = results[i].id + " " + results[i].deptname;
+//push into array
           depts.push(dept);
         }
       });
@@ -242,8 +249,10 @@ function addRole() {
       connection.query(
         "INSERT INTO emprole SET ?",
         {
+//set the values in the table emprole 
           title: answer.role,
             salary: answer.salary,
+//use the dept id to set the dept
             department_id: parseInt(answer.dept)
         },
 
@@ -257,20 +266,21 @@ function addRole() {
 }
 
 function updateRole() {
-  var roles = [];
+//create array for roles to be pushed in
+  var roles = []
+//select all from emprole
   connection.query("SELECT * FROM emprole", function (err, results) {
+//push roles and ids
     for (j = 0; j < results.length; j++) {
       var role = results[j].id + " " + results[j].title;
       roles.push(role);
     }
   });
   var employees = [];
-
-  // connection.query ("SELECT employee.emp_id, employee.role_id, employee.first_name, employee.last_name FROM employee INNER JOIN emprole ON employee.role_id = emprole.id ORDER BY emp_id",  function(err, results){
+  //select for employee and push into array just like roles
   connection.query(
     "SELECT employee.*, emprole.title FROM employee JOIN emprole ON employee.role_id = emprole.id ORDER BY emp_id",
     function (err, results) {
-    //   console.table(results);
       for (i = 0; i < results.length; i++) {
         var employee =
           results[i].emp_id +
@@ -299,6 +309,7 @@ function updateRole() {
         .then(function (answer) {
           connection.query("UPDATE employee SET ? WHERE ?", [
             {
+//use the parsed id value to update table
               role_id: parseInt(answer.role_id),
             },
             {
@@ -321,9 +332,7 @@ function updateRole() {
 function updateManager() {
   var employees = [];
 
-  // connection.query ("SELECT employee.emp_id, employee.role_id, employee.first_name, employee.last_name FROM employee INNER JOIN emprole ON employee.role_id = emprole.id ORDER BY emp_id",  function(err, results){
   connection.query("SELECT * FROM employee", function (err, results) {
-    // console.table(results);
     for (i = 0; i < results.length; i++) {
       var employee =
         results[i].emp_id +
@@ -369,7 +378,7 @@ function updateManager() {
       });
   });
 }
-
+//back function so user can return to main menu without seeing all q's again
 function back() {
   inquirer
     .prompt({

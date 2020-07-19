@@ -212,6 +212,13 @@ function addDept() {
 }
 
 function addRole() {
+    var depts = [];
+    connection.query("SELECT * FROM emprole, department", function (err, results) {
+        for (i = 0; i < results.length; i++) {
+          var dept = results[i].id + " " + results[i].deptname;
+          depts.push(dept);
+        }
+      });
   inquirer
     .prompt([
       {
@@ -224,13 +231,20 @@ function addRole() {
         name: "salary",
         message: "what is the salary?",
       },
+      {
+        name: "dept",
+        type: "list",
+        message: "select a department?",
+        choices: depts,
+      },
     ])
     .then(function (answer) {
       connection.query(
         "INSERT INTO emprole SET ?",
         {
           title: answer.role,
-            salary: answer.salary
+            salary: answer.salary,
+            department_id: parseInt(answer.dept)
         },
 
         function (err) {
@@ -256,7 +270,7 @@ function updateRole() {
   connection.query(
     "SELECT employee.*, emprole.title FROM employee JOIN emprole ON employee.role_id = emprole.id ORDER BY emp_id",
     function (err, results) {
-      console.table(results);
+    //   console.table(results);
       for (i = 0; i < results.length; i++) {
         var employee =
           results[i].emp_id +

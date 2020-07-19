@@ -268,16 +268,16 @@ function addRole(){
 ]).then (function(answer){
     // console.log(answer.role_id)
     // console.log(answer.emp_id)
-    connection.query("UPDATE employee SET role_id =? WHERE emp_id =?", 
+    connection.query("UPDATE employee SET ? WHERE ?", 
     // console.table(results)
     [
         {
             
-             role_id: answer.role_id,
+             role_id: parseInt(answer.role_id),
         },
         {
         
-             emp_id: answer.emp_id
+             emp_id: parseInt(answer.emp_id)
         },
 
         function (err, data){
@@ -291,7 +291,7 @@ function addRole(){
 
 
 
-// back();
+back();
 })
     })
 }

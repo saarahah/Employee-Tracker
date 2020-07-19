@@ -219,13 +219,20 @@ function addRole() {
         name: "role",
         message: "what role would you like to add?",
       },
+     {
+        type: "input",
+        name: "salary",
+        message: "what is the salary?",
+      },
     ])
     .then(function (answer) {
       connection.query(
         "INSERT INTO emprole SET ?",
         {
           title: answer.role,
+            salary: answer.salary
         },
+
         function (err) {
           if (err) throw err;
           console.log("role added!");
@@ -302,7 +309,7 @@ function updateManager() {
 
   // connection.query ("SELECT employee.emp_id, employee.role_id, employee.first_name, employee.last_name FROM employee INNER JOIN emprole ON employee.role_id = emprole.id ORDER BY emp_id",  function(err, results){
   connection.query("SELECT * FROM employee", function (err, results) {
-    console.table(results);
+    // console.table(results);
     for (i = 0; i < results.length; i++) {
       var employee =
         results[i].emp_id +

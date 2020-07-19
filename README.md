@@ -22,7 +22,7 @@ In order to install the app on your own machine to run as local host you must np
 
 ## Business Context
 
-For business owners who want to be able to view and manage the departments, roles, and employees in companies for organization and planning
+For business owners who want to be able to view and manage the departments, roles, and employees in companies for organization and planning. Using this app you can view all employees, view all departments, view all roles, add a new employee, add a new role, add a new department, update a role, and update someone's manager. 
 
  ## License
   

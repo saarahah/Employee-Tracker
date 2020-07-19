@@ -40,6 +40,7 @@ function start (){
                 "add a new role",
                 "add a new department",
                 "update role",
+                "update manager",
                 "exit"
             ]
         }
@@ -89,6 +90,12 @@ function start (){
 
             updateRole();
 
+            break;
+
+            case "update manager":
+
+            updateManager();
+    
             break;
 
             case "exit":
@@ -170,7 +177,7 @@ function viewAllDept(){
 }
 
 function viewAllEmp(){
-connection.query("SELECT employee.emp_id, employee.first_name, employee.last_name, emprole.title, emprole.salary from tracker_DB.employee LEFT JOIN emprole ON emprole.id = employee.role_id", function (error, results){
+connection.query("SELECT employee.emp_id, employee.first_name, employee.last_name, employee.manager_id, emprole.title, emprole.salary from tracker_DB.employee LEFT JOIN emprole ON emprole.id = employee.role_id", function (error, results){
     if (error) throw error
     console.table(results)
     back();
@@ -248,9 +255,7 @@ connection.query("SELECT * FROM emprole", function (err, results){
         employees.push(employee);
       
     }
-
-
-
+    
  inquirer.prompt([
         {
         name: "emp_id",
@@ -285,10 +290,70 @@ connection.query("SELECT * FROM emprole", function (err, results){
         }
     ]) 
    
-    // console.table(results);
+back();
+})
+    })
+}
 
 
+function updateManager(){
 
+//     var managers = [];
+// connection.query("SELECT * FROM emprole", function (err, results){
+//     for (j=0; j < results.length; j++){
+//         var manager=  results[j].id + " " + results[j].title;
+//         managers.push(manager); 
+//         console.table(results)
+// }
+
+// })
+    var employees= [];
+    
+    // connection.query ("SELECT employee.emp_id, employee.role_id, employee.first_name, employee.last_name FROM employee INNER JOIN emprole ON employee.role_id = emprole.id ORDER BY emp_id",  function(err, results){
+    connection.query ("SELECT * FROM employee", function(err, results){
+     console.table(results)
+    for (i=0; i < results.length; i++){
+
+        
+        var employee= results[i].emp_id + " " + results[i].first_name + " " + results[i].last_name;
+        employees.push(employee);
+      
+    }
+    
+ inquirer.prompt([
+        {
+        name: "emp_id",
+        type: "list",
+        message: "select an employee ID number",
+        choices: employees
+        
+    },
+    {
+        name: "manager_id",
+        type: "list",
+        message: "select a manager?",
+        choices: employees
+    }
+    
+]).then (function(answer){
+    connection.query("UPDATE employee SET ? WHERE ?", 
+    [
+        {
+            
+             manager_id: parseInt(answer.manager_id),
+        },
+        {
+        
+             emp_id: parseInt(answer.emp_id)
+        },
+
+        function (err, data){
+            if (err){
+                throw err;
+            }
+        }
+    ]) 
+   
 back();
 })
     })

@@ -236,14 +236,14 @@ function addRole(){
     for (i=0; i < results.length; i++){
 
         
-        var employee= results[i].emp_id ;
+        var employee= results[i].emp_id + " " + results[i].first_name + " " + results[i].last_name;
         employees.push(employee);
       
 
     }
 
     for (j=0; j < results.length; j++){
-        var role=  results[j].role_id;
+        var role=  results[j].role_id + " " + results[j].title;
         // console.log(role);
         roles.push(role);
  

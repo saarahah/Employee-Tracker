@@ -229,15 +229,14 @@ function addRole(){
  function updateRole(){
 
     var employees= [];
-    // var employee_id = [];
     var roles = [];
-    connection.query ("SELECT employee.emp_id, employee.role_id, employee.first_name, employee.last_name FROM employee INNER JOIN emprole ON employee.role_id = emprole.id ORDER BY emp_id",  function(err, results){
+    // connection.query ("SELECT employee.emp_id, employee.role_id, employee.first_name, employee.last_name FROM employee INNER JOIN emprole ON employee.role_id = emprole.id ORDER BY emp_id",  function(err, results){
+    connection.query ("SELECT employee.*, emprole.title FROM employee JOIN emprole ON employee.role_id = emprole.id ORDER BY emp_id", function(err, results){
      console.table(results)
     for (i=0; i < results.length; i++){
 
         
         var employee= results[i].emp_id ;
-
         employees.push(employee);
       
 
@@ -254,14 +253,14 @@ function addRole(){
         {
         name: "emp_id",
         type: "list",
-        message: "select an employee",
+        message: "select an employee ID number",
         choices: employees
         
     },
     {
         name: "role_id",
         type: "list",
-        message: "what do you want the new role to be?",
+        message: "select a role ID number?",
         choices: roles
     }
     

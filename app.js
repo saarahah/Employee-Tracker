@@ -287,7 +287,7 @@ function addRole(){
         }
     ]) 
    
-    console.table(results);
+    // console.table(results);
 
 
 

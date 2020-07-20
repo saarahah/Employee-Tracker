@@ -4,7 +4,6 @@
 -- USE tracker_DB;
 
 -- CREATE TABLE department(
-
 -- deptname VARCHAR (30) NOT NULL,
 -- id INT NOT NULL AUTO_INCREMENT,
 -- PRIMARY KEY (id)
@@ -12,24 +11,23 @@
 
 -- CREATE TABLE emprole(
 -- id INT NOT NULL AUTO_INCREMENT,
--- title VARCHAR (30) NOT NULL,
--- salary DECIMAL NOT NULL,
--- department_id INT NOT NULL,
+-- title VARCHAR (30) NULL,
+-- salary DECIMAL NULL,
+-- department_id INT NULL,
 -- PRIMARY KEY (id),
 -- FOREIGN KEY (department_id)
--- 	REFERENCES department (id)
+-- 	references department (id)
 -- );
 
 -- CREATE TABLE employee(
--- id INT NOT NULL AUTO_INCREMENT,
+-- emp_id INT NOT NULL AUTO_INCREMENT,
 -- first_name VARCHAR(30) NOT NULL,
 -- last_name VARCHAR(30) NOT NULL,
 -- role_id INT NOT NULL,
 -- manager_id INT,
--- PRIMARY KEY (id),
+-- PRIMARY KEY (emp_id),
 -- FOREIGN KEY (role_id)
--- 	REFERENCES emprole (id),
+-- 	references emprole (id),
 -- FOREIGN KEY (manager_id)
--- 	REFERENCES employee (id)
+-- 	references employee (emp_id)
 -- );
-

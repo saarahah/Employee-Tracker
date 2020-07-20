@@ -42,6 +42,7 @@ function start() {
         "add a new department",
         "update role",
         "update manager",
+        "delete employee",
         "exit",
       ],
     })
@@ -93,6 +94,12 @@ function start() {
           updateManager();
 
           break;
+
+          case "delete employee":
+
+            deleteEmployee();
+  
+            break;
 
         case "exit":
           exit();
@@ -279,6 +286,50 @@ function addRole() {
         }
       );
     });
+}
+
+function deleteEmployee(){
+  var employees = [];
+
+  connection.query("SELECT * FROM employee", function (err, results) {
+    for (i = 0; i < results.length; i++) {
+      var employee =
+        results[i].emp_id +
+        " " +
+        results[i].first_name +
+        " " +
+        results[i].last_name;
+      employees.push(employee);
+    }
+
+    inquirer
+      .prompt([
+        {
+          name: "emp_id",
+          type: "list",
+          message: "select an employee to delete?",
+          choices: employees,
+        },
+    
+      ])
+      .then(function (answer) {
+        connection.query("DELETE FROM employee WHERE emp_id = ?", [
+      
+          {
+            emp_id: parseInt(answer.emp_id),
+          },
+
+          function (err, data) {
+            if (err) {
+              throw err;
+            }
+          },
+        ]);
+
+        back();
+      });
+  });
+
 }
 
 function updateRole() {

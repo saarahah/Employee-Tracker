@@ -1,6 +1,7 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 const { RSA_PKCS1_OAEP_PADDING } = require("constants");
+const { connect } = require("http2");
 
 // create the connection information for the sql database
 var connection = mysql.createConnection({
@@ -33,6 +34,7 @@ function start() {
       message: "what do you want to do?",
       choices: [
         "view all employees",
+        "view employee by manager",
         "view all departments",
         "view all roles",
         "add a new employee",
@@ -50,6 +52,11 @@ function start() {
           viewAllEmp();
 
           break;
+
+          case "view employee by manager":
+            viewByManage();
+  
+            break;
 
         case "add a new department":
           addDept();
@@ -159,6 +166,15 @@ function viewAllDept() {
     console.table(results);
     back();
   });
+}
+
+function viewByManage(){
+connection.query("SELECT employee.emp_id, employee.first_name, employee.last_name, CONCAT (manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN employee manager ON manager.emp_id = employee.manager_id;",
+function (error, results) {
+  if (error) throw error;
+  console.table(results)
+  back();
+});
 }
 
 function viewAllEmp() {
